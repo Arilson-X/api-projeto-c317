@@ -1,6 +1,6 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from sistema.models import Produtor, Produto, Pedido, Relatorio
-from sistema.serializer import ProdutoSerializer, ProdutorSerializer, PedidoSerialiser, RelatorioSerialiser
+from sistema.serializer import ProdutoSerializer, ProdutorSerializer, PedidoSerialiser, RelatorioSerialiser, ListaPedidosProdutorSerializer
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 
@@ -27,3 +27,9 @@ class RelatorioViewSet(viewsets.ModelViewSet):
     queryset = Relatorio.objects.all()
     serializer_class = RelatorioSerialiser
 
+class ListaPedidosProdutorViewSet(generics.ListAPIView):
+    "Listando os Pedidos Feitos a um Prdutor"
+    def get_queryset(self):
+        queryset = Pedido.objects.filter(produtor_id=self.kwargs['pk'])
+        return queryset
+    serializer_class = ListaPedidosProdutorSerializer

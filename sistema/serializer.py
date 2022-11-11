@@ -24,3 +24,9 @@ class RelatorioSerialiser(serializers.ModelSerializer):
     class Meta:
         model = Relatorio
         fields = '__all__'
+
+
+class ListaPedidosProdutorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pedido
+        fields = '__all__'
